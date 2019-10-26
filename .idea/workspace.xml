@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8465a200-ea45-4f30-9d7c-e378a822e055" name="Default Changelist" comment="" />
+    <list default="true" id="8465a200-ea45-4f30-9d7c-e378a822e055" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Vernoi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Watershed.py" beforeDir="false" afterPath="$PROJECT_DIR$/Watershed.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +19,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1S2Vkl4lKbe22DYXezkFR6rIteO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -68,6 +76,29 @@
       <option name="presentableId" value="Default" />
       <updated>1570761822139</updated>
     </task>
+    <task id="LOCAL-00001" summary="Using distance transform to improve watershed segmentation.">
+      <created>1572116607908</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572116607908</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Using distance transform to improve watershed segmentation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Using distance transform to improve watershed segmentation." />
   </component>
 </project>

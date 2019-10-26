@@ -24,9 +24,16 @@ opening = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel, iterations=5)
 
 # finding sure background area
 sure_bg = cv.dilate(opening, kernel, iterations=1)
+# inverting the dist. transform to get better sure_bg_v2
+dist_transform = cv.distanceTransform(opening, cv.DIST_L2, 5)
+dist_transform_int8 = np.int8(dist_transform)
+dist_transform_uint8 = np.uint8(dist_transform)
+dist_transform_not = cv.bitwise_not(dist_transform_int8)
+# sure_bg = dist_transform_int8
+# sure_bg_v2 = cv.dilate()
 plt.subplot(2, 3, 1)
 plt.imshow(sure_bg)
-plt.title('Dilation:sure_bg')
+plt.title('sure_bg')
 
 # distance transform to find sure foreground area
 dist_transform = cv.distanceTransform(opening, cv.DIST_L2, 5)
@@ -41,17 +48,20 @@ plt.title('thresholds: sure_fg')
 
 # Finding unknown region
 sure_fg = np.uint8(sure_fg)
-dist_transform = np.uint8(dist_transform)
+sure_bg = np.uint8(sure_bg)
+dist_transform = np.int8(dist_transform)
 print(sure_fg.dtype)
 print(sure_bg.dtype)
-# unknown = cv.subtract(sure_bg, sure_fg)
-unknown = cv.subtract(sure_bg, dist_transform)
+unknown = cv.subtract(dist_transform_uint8, sure_fg)
+unknown = np.int8(unknown)
+
+# unknown = cv.subtract(sure_bg, dist_transform)
 plt.subplot(2, 3, 4)
 plt.imshow(unknown)
 plt.title('unknown')
 
 # mark Labeling
-ret, markers = cv.connectedComponents(dist_transform, labels=None, connectivity=8)
+ret, markers = cv.connectedComponents(sure_fg, labels=None, connectivity=8)
 # Adding one to sure background, so it is 1 instead of 0
 markers = markers + 1
 # marking the unknown region as zero
