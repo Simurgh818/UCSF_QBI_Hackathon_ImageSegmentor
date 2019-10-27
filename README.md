@@ -28,4 +28,6 @@ Voronoi: https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.spati
 U-NET CNN:https://arxiv.org/abs/1505.04597
 
   Method: 
-    -
+  - created masks to train against. 
+  - Images were downscaled while keeping features/activations (encoding). 
+  - They were then upsampled with up-convolution layers and features transferred.
