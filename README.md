@@ -13,6 +13,7 @@ Watershed: https://docs.opencv.org/master/d3/db4/tutorial_py_watershed.html
   -the opencv subtract (sure_bg - sure_fg) was used to get the boundary of the neuclei segments.
   -watershed colors the different segments different colors.
   -Centroid method was used to find the center of the neuclei 
+  
 --------------------------------------------------------------------------------------------------------------------------
 Voronoi: 
 
