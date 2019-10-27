@@ -6,6 +6,7 @@ The team used a modified watershed, Voronoi and U-NET CNN to do the segmentation
 
 --------------------------------------------------------------------------------------------------------------------------
 Watershed: https://docs.opencv.org/master/d3/db4/tutorial_py_watershed.html
+
   Methods: opencv library and functions were used for this method.
   -threshold grayscale image of neuclei
   -dilation was used to find the area we are sure it is background
@@ -15,7 +16,7 @@ Watershed: https://docs.opencv.org/master/d3/db4/tutorial_py_watershed.html
   -Centroid method was used to find the center of the neuclei 
   
 --------------------------------------------------------------------------------------------------------------------------
-Voronoi: 
+Voronoi: https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.spatial.Voronoi.html
 
   Methods:
   -thresholded grayscale image of cells using otsu
@@ -25,3 +26,6 @@ Voronoi:
  -------------------------------------------------------------------------------------------------------------------------
  
 U-NET CNN:https://arxiv.org/abs/1505.04597
+
+  Method: 
+    -
