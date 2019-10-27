@@ -1,9 +1,7 @@
 import numpy as np
 import cv2 as cv
 from matplotlib import pyplot as plt
-import math
 from queue import Queue
-import os, sys
 
 
 def get_nuclei_centroids(copy):
@@ -58,7 +56,6 @@ print("Centroid function created")
 
 # Read image, make gray scale, threshold to binary
 img = cv.imread('mouse_brain-one_FOV.tif')
-img_gray = cv.imread('mouse_brain-one_FOV.tif', 0)
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 ret, thresh = cv.threshold(gray, 0, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)
 
@@ -66,26 +63,16 @@ plt.figure("Watershed Segmentation")
 plt.subplot(2, 3, 1)
 plt.imshow(img)
 plt.title('Original Image')
-# plt.subplot(1, 6, 2)
-# plt.imshow(thresh)
-# plt.title('Binarized/threshold')
 
 # noise removal
 kernel = np.ones((5, 5), np.uint8)
 opening = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel, iterations=1)
-# plt.subplot(1, 4, 1)
-# plt.imshow(opening)
-# plt.title('Morphological Opening')
+
 
 # finding sure background area
 sure_bg = cv.dilate(opening, kernel, iterations=1)
 # inverting the dist. transform to get better sure_bg_v2
 dist_transform = cv.distanceTransform(opening, cv.DIST_L2, 5)
-dist_transform_int8 = np.int8(dist_transform)
-dist_transform_uint8 = np.uint8(dist_transform)
-dist_transform_not = cv.bitwise_not(dist_transform_int8)
-# sure_bg = dist_transform_int8
-# sure_bg_v2 = cv.dilate()
 plt.subplot(2, 3, 2)
 plt.imshow(sure_bg)
 plt.title('sure_bg')
@@ -94,7 +81,7 @@ plt.title('sure_bg')
 dist_transform = cv.distanceTransform(opening, cv.DIST_L2, 5)
 print("dist_transform is: ", dist_transform.max())
 ret, sure_fg = cv.threshold(dist_transform, 0.15*dist_transform.max(), 255, 0)
-# 0.1*dist_transform.max()
+
 # plt.subplot(2, 3, 2)
 # plt.imshow(dist_transform)
 # plt.title('dist transform')
@@ -106,14 +93,10 @@ plt.title('thresholds: sure_fg')
 sure_fg = np.uint8(sure_fg)
 sure_bg = np.uint8(sure_bg)
 dist_transform = np.int8(dist_transform)
-# print(sure_fg.dtype)
-# print(sure_bg.dtype)
 unknown = cv.subtract(dist_transform_uint8, sure_fg)
 unknown = cv.subtract(sure_bg, sure_fg)
 unknown = np.uint8(unknown)
 unknown_not = cv.bitwise_not(unknown)
-# unknown = unknown_not
-# unknown = cv.subtract(sure_bg, dist_transform)
 plt.subplot(2, 3, 4)
 plt.imshow(unknown_not)
 plt.title('Nuclei segment boundaries')
@@ -125,8 +108,6 @@ markers = markers + 1
 # marking the unknown region as zero
 markers[unknown == 255] = 0
 # markers[unknown == 255] = -1
-# thresh_rotated = cv.rotate(thresh, cv.ROTATE_90_CLOCKWISE)
-# sure_bg_not = cv.bitwise_not(sure_bg)
 thresh_not = cv.bitwise_not(thresh)
 centroids = get_nuclei_centroids(thresh)
 print("The nuclei centroids are: ", centroids)
@@ -137,22 +118,15 @@ x, y = zip(*centroids)
 print("x value is : ", x)
 print("y value is :", y)
 
-# img_shape = img.shape
-# centroid_img = np.array[img_shape[0], img_shape[1]]
-# centroid_img[x, y] = [255, 0, 0]
-
 # Watershed function
 img_watershed = cv.watershed(img, markers)
 # img_watershed[unknown == 255] = -1
-# img_watershed[centroid_img == 255] = 4
 plt.subplot(2, 3, 5)
 plt.imshow(img_watershed)
-
 plt.title('img_watershed')
 
 img[markers == -1] = [255, 0, 0]
 img[unknown == 255] = [255, 0, 0]
-# img[centroids] = [0, 255, 0]
 plt.subplot(2, 3, 6)
 plt.imshow(img)
 plt.scatter(y, x, s=1, c='b')
