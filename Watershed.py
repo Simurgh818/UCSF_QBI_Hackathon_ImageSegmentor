@@ -93,7 +93,7 @@ plt.title('thresholds: sure_fg')
 sure_fg = np.uint8(sure_fg)
 sure_bg = np.uint8(sure_bg)
 dist_transform = np.int8(dist_transform)
-unknown = cv.subtract(dist_transform_uint8, sure_fg)
+
 unknown = cv.subtract(sure_bg, sure_fg)
 unknown = np.uint8(unknown)
 unknown_not = cv.bitwise_not(unknown)
